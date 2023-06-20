@@ -1,4 +1,4 @@
-import { Scenes, Markup, Context } from "telegraf";
+import { Scenes, Context } from "telegraf";
 import mainKeyboard from "../utils/mainKeyboard";
 
 export const contactScene = new Scenes.BaseScene<Scenes.SceneContext>("contact");
