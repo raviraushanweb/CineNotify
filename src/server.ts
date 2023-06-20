@@ -2,6 +2,7 @@ import { Telegraf, Markup, Context, Scenes, session } from "telegraf";
 import mongoose from "mongoose";
 import { contactScene } from "./bot/contact";
 import { featureRequestScene } from "./bot/featureRequest";
+import {searchScene} from "./bot/search";
 
 import {
 	APP_PORT,
@@ -13,10 +14,11 @@ import about from "./bot/about";
 import mainKeyboard from "./utils/mainKeyboard";
 import settings from "./bot/settings";
 
+
 interface MyContext extends Scenes.SceneContext {}
 
 const bot = new Telegraf<MyContext>(TELEGRAM_BOTTOKEN as string);
-const stage = new Scenes.Stage<MyContext>([contactScene, featureRequestScene], {
+const stage = new Scenes.Stage<MyContext>([contactScene, featureRequestScene, searchScene], {
 	ttl: 10,
 });
 
@@ -46,6 +48,7 @@ bot.start( async (ctx) =>
 	}
 );
 
+bot.hears("🔍 Search", (ctx: MyContext) => ctx.scene.enter("search"));
 bot.hears("🎥 My collection", async (ctx) => {
 	await ctx.reply("You clicked on My collection!");
 });
